@@ -20,7 +20,9 @@ dd:observableProperty
 
 dd:physicalDriver  rdf:type  owl:ObjectProperty ;
         rdfs:label    "physical driver"@en ;
-        rdfs:comment  "physical manifestation that is a driving force for a phenomena (e.g. elevated sea surface temperature is a driver of hurricanes)" .
+        rdfs:comment  "physical manifestation that is a driving force for a phenomena (e.g. elevated sea surface temperature is a driver of hurricanes)"@en ;
+        rdfs:domain   dd:Phenomena ;
+        rdfs:range    dd:PhysicalManifestation .
 
 dd:physicalManifestation
         rdf:type      owl:ObjectProperty ;
