@@ -1,0 +1,190 @@
+@prefix :  <http://www.purl.org/twc/ns/darkdata#> .
+@prefix dd:  <http://www.purl.org/twc/ns/darkdata#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml:  <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://www.purl.org/twc/ns/darkdata>
+        rdf:type     owl:Ontology ;
+        owl:imports  <http://def.seegrid.csiro.au/ontology/om/om-lite> .
+
+dd:observableProperty
+        rdf:type      owl:ObjectProperty ;
+        rdfs:label    "observable property"@en ;
+        rdfs:comment  "observable property of some physical manifestation of a phenomena"@en ;
+        rdfs:range    dd:ObservableProperty ;
+        rdfs:domain   dd:PhysicalManifestation .
+
+dd:physicalDriver  rdf:type  owl:ObjectProperty ;
+        rdfs:label    "physical driver"@en ;
+        rdfs:comment  "physical manifestation that is a driving force for a phenomena (e.g. elevated sea surface temperature is a driver of hurricanes)" .
+
+dd:physicalManifestation
+        rdf:type      owl:ObjectProperty ;
+        rdfs:label    "physical manifestation"@en ;
+        rdfs:comment  "physical manifestation of a phenomena"@en ;
+        rdfs:domain   dd:Phenomena ;
+        rdfs:range    dd:PhysicalManifestation .
+
+dd:AerosolOpticalDepth
+        rdf:type         owl:Class ;
+        rdfs:label       "Aerosol Optical Depth"@en ;
+        rdfs:subClassOf  dd:ObservableProperty .
+
+dd:AshPlume  rdf:type    owl:Class ;
+        rdfs:label       "Ash Plume"@en ;
+        rdfs:subClassOf  dd:PhysicalManifestation .
+
+dd:AtmosphericConcentration
+        rdf:type         owl:Class ;
+        rdfs:label       "Atmospheric Concentration"@en ;
+        rdfs:subClassOf  dd:ObservableProperty .
+
+dd:Column_SO2  rdf:type  owl:Class ;
+        rdfs:label       "SO2 Column"@en ;
+        rdfs:subClassOf  dd:ObservableProperty .
+
+dd:DataVariable  rdf:type  owl:Class ;
+        rdfs:label    "Data Variable"@en ;
+        rdfs:comment  "Representation of the measurement in a data file"@en .
+
+dd:DataVariableObservation
+        rdf:type         owl:Class ;
+        rdfs:label       "Data Variable Observation"@en ;
+        rdfs:subClassOf  <http://def.seegrid.csiro.au/ontology/om/om-lite#Observation> .
+
+_:b0    rdf:type           owl:Restriction ;
+        owl:onProperty     <http://def.seegrid.csiro.au/ontology/om/om-lite#result> ;
+        owl:allValuesFrom  dd:DataVariable .
+
+dd:DataVariableObservation
+        rdfs:subClassOf  _:b0 ;
+        rdfs:comment     "Observation whose result is a data variable"@en .
+
+dd:DustStorm  rdf:type   owl:Class ;
+        rdfs:label       "Dust Storm"@en ;
+        rdfs:subClassOf  dd:Phenomena .
+
+dd:ElevatedSurfaceTemperature
+        rdf:type         owl:Class ;
+        rdfs:label       "Elevated Surface Temperature"@en ;
+        rdfs:subClassOf  dd:PhysicalManifestation .
+
+dd:Emission_SO2  rdf:type  owl:Class ;
+        rdfs:label       "SO2 Emission"@en ;
+        rdfs:subClassOf  dd:PhysicalManifestation .
+
+dd:Event  rdf:type  owl:Class ;
+        rdfs:label  "Event"@en .
+
+dd:Histogram  rdf:type   owl:Class ;
+        rdfs:subClassOf  dd:Visualization .
+
+dd:Hovmoller  rdf:type   owl:Class ;
+        rdfs:subClassOf  dd:Visualization .
+
+dd:Hurricane  rdf:type   owl:Class ;
+        rdfs:label       "Hurricane"@en ;
+        rdfs:subClassOf  dd:Phenomena .
+
+_:b1    rdf:type            owl:Restriction ;
+        owl:onProperty      dd:physicalManifestation ;
+        owl:someValuesFrom  dd:WindFields .
+
+dd:Hurricane  rdfs:subClassOf  _:b1 .
+
+_:b2    rdf:type            owl:Restriction ;
+        owl:onProperty      dd:physicalManifestation ;
+        owl:someValuesFrom  dd:HurricaneEye .
+
+dd:Hurricane  rdfs:subClassOf  _:b2 .
+
+dd:HurricaneEye  rdf:type  owl:Class ;
+        rdfs:label       "Hurricane Eye"@en ;
+        rdfs:subClassOf  dd:PhysicalManifestation .
+
+dd:ObservableProperty
+        rdf:type    owl:Class ;
+        rdfs:label  "Observable Property"@en .
+
+dd:Phenomena  rdf:type   owl:Class ;
+        rdfs:label       "Phenomena"@en ;
+        rdfs:subClassOf  dd:Event ;
+        rdfs:comment     "An observable occurrence of particular physical (as opposed to dynamic or synoptic) significance within the atmosphere"@en .
+
+dd:PhysicalManifestation
+        rdf:type    owl:Class ;
+        rdfs:label  "Physical Manifestation"@en .
+
+_:b3    rdf:type            owl:Restriction ;
+        owl:onProperty      dd:observableProperty ;
+        owl:someValuesFrom  dd:AerosolOpticalDepth .
+
+dd:PhysicalManifestation
+        rdfs:subClassOf  _:b3 .
+
+dd:Radiance  rdf:type    owl:Class ;
+        rdfs:label       "Radiance"@en ;
+        rdfs:subClassOf  dd:ObservableProperty .
+
+dd:Rainrate  rdf:type    owl:Class ;
+        rdfs:label       "Rain Rate"@en ;
+        rdfs:subClassOf  dd:ObservableProperty .
+
+dd:SeasonalTimeSeries
+        rdf:type         owl:Class ;
+        rdfs:subClassOf  dd:Visualization .
+
+dd:Temperature  rdf:type  owl:Class ;
+        rdfs:label       "Temperature"@en ;
+        rdfs:subClassOf  dd:ObservableProperty .
+
+dd:TimeAveragedMap  rdf:type  owl:Class ;
+        rdfs:subClassOf  dd:Visualization .
+
+dd:UserDefinedClimatology
+        rdf:type         owl:Class ;
+        rdfs:subClassOf  dd:Visualization .
+
+dd:VerticalProfile  rdf:type  owl:Class ;
+        rdfs:subClassOf  dd:Visualization .
+
+dd:Visualization  rdf:type  owl:Class ;
+        rdfs:label  "Visualization"@en .
+
+dd:VolcanicEruption  rdf:type  owl:Class ;
+        rdfs:label       "Volcanic Eruption"@en ;
+        rdfs:subClassOf  dd:Phenomena .
+
+_:b4    rdf:type            owl:Restriction ;
+        owl:onProperty      dd:physicalManifestation ;
+        owl:someValuesFrom  dd:AshPlume .
+
+dd:VolcanicEruption  rdfs:subClassOf  _:b4 .
+
+dd:WindFields  rdf:type  owl:Class ;
+        rdfs:label       "Wind Fields"@en ;
+        rdfs:subClassOf  dd:PhysicalManifestation .
+
+dd:ZonalMeans  rdf:type  owl:Class ;
+        rdfs:subClassOf  dd:Visualization .
+
+dd:aerosol_optical_depth_thickness
+        rdf:type  dd:AerosolOpticalDepth ;
+        rdf:type  owl:NamedIndividual .
+
+dd:atmospheric_concentration_SO2
+        rdf:type  dd:AtmosphericConcentration ;
+        rdf:type  owl:NamedIndividual .
+
+dd:infrared_radiance  rdf:type  dd:Radiance ;
+        rdf:type  owl:NamedIndividual .
+
+dd:surface_temperature
+        rdf:type  dd:Temperature ;
+        rdf:type  owl:NamedIndividual .
+
+dd:visible_radiance  rdf:type  dd:Radiance ;
+        rdf:type  owl:NamedIndividual .
