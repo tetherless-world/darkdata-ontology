@@ -5,6 +5,7 @@
 @prefix xml:  <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix oml:  <http://def.seegrid.csiro.au/ontology/om/om-lite#> .
 
 <http://www.purl.org/twc/ns/darkdata>
         rdf:type     owl:Ontology ;
@@ -53,10 +54,10 @@ dd:DataVariable  rdf:type  owl:Class ;
 dd:DataVariableObservation
         rdf:type         owl:Class ;
         rdfs:label       "Data Variable Observation"@en ;
-        rdfs:subClassOf  <http://def.seegrid.csiro.au/ontology/om/om-lite#Observation> .
+        rdfs:subClassOf  oml:Observation .
 
 _:b0    rdf:type           owl:Restriction ;
-        owl:onProperty     <http://def.seegrid.csiro.au/ontology/om/om-lite#result> ;
+        owl:onProperty     oml:result ;
         owl:allValuesFrom  dd:DataVariable .
 
 dd:DataVariableObservation
