@@ -1,0 +1,225 @@
+
+<?xml version="1.0" encoding="utf-8" ?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+
+  <owl:Ontology rdf:about="http://www.purl.org/twc/ns/darkdata">
+    <owl:imports rdf:resource="http://def.seegrid.csiro.au/ontology/om/om-lite"/>
+  </owl:Ontology>
+
+  <owl:ObjectProperty rdf:about="http://www.purl.org/twc/ns/darkdata#observableProperty">
+    <rdfs:label xml:lang="en">observable property</rdfs:label>
+    <rdfs:comment xml:lang="en">observable property of some physical manifestation of a phenomena</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.purl.org/twc/ns/darkdata#ObservableProperty"/>
+    <rdfs:domain rdf:resource="http://www.purl.org/twc/ns/darkdata#PhysicalManifestation"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="http://www.purl.org/twc/ns/darkdata#physicalDriver">
+    <rdfs:label xml:lang="en">physical driver</rdfs:label>
+    <rdfs:comment xml:lang="en">physical manifestation that is a driving force for a phenomena (e.g. elevated sea surface temperature is a driver of hurricanes)</rdfs:comment>
+    <rdfs:domain rdf:resource="http://www.purl.org/twc/ns/darkdata#Phenomena"/>
+    <rdfs:range rdf:resource="http://www.purl.org/twc/ns/darkdata#PhysicalManifestation"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="http://www.purl.org/twc/ns/darkdata#physicalManifestation">
+    <rdfs:label xml:lang="en">physical manifestation</rdfs:label>
+    <rdfs:comment xml:lang="en">physical manifestation of a phenomena</rdfs:comment>
+    <rdfs:domain rdf:resource="http://www.purl.org/twc/ns/darkdata#Phenomena"/>
+    <rdfs:range rdf:resource="http://www.purl.org/twc/ns/darkdata#PhysicalManifestation"/>
+  </owl:ObjectProperty>
+
+  <owl:Class rdf:about="http://www.purl.org/twc/ns/darkdata#AerosolOpticalDepth">
+    <rdfs:label xml:lang="en">Aerosol Optical Depth</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.purl.org/twc/ns/darkdata#ObservableProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://www.purl.org/twc/ns/darkdata#AshPlume">
+    <rdfs:label xml:lang="en">Ash Plume</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.purl.org/twc/ns/darkdata#PhysicalManifestation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://www.purl.org/twc/ns/darkdata#AtmosphericConcentration">
+    <rdfs:label xml:lang="en">Atmospheric Concentration</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.purl.org/twc/ns/darkdata#ObservableProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://www.purl.org/twc/ns/darkdata#Column_SO2">
+    <rdfs:label xml:lang="en">SO2 Column</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.purl.org/twc/ns/darkdata#ObservableProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://www.purl.org/twc/ns/darkdata#DataVariable">
+    <rdfs:label xml:lang="en">Data Variable</rdfs:label>
+    <rdfs:comment xml:lang="en">Representation of the measurement in a data file</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://www.purl.org/twc/ns/darkdata#DataVariableObservation">
+    <rdfs:label xml:lang="en">Data Variable Observation</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://def.seegrid.csiro.au/ontology/om/om-lite#Observation"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://def.seegrid.csiro.au/ontology/om/om-lite#result"/>
+        <owl:allValuesFrom rdf:resource="http://www.purl.org/twc/ns/darkdata#DataVariable"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+
+    <rdfs:comment xml:lang="en">Observation whose result is a data variable</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://www.purl.org/twc/ns/darkdata#DustStorm">
+    <rdfs:label xml:lang="en">Dust Storm</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.purl.org/twc/ns/darkdata#Phenomena"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://www.purl.org/twc/ns/darkdata#ElevatedSurfaceTemperature">
+    <rdfs:label xml:lang="en">Elevated Surface Temperature</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.purl.org/twc/ns/darkdata#PhysicalManifestation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://www.purl.org/twc/ns/darkdata#Emission_SO2">
+    <rdfs:label xml:lang="en">SO2 Emission</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.purl.org/twc/ns/darkdata#PhysicalManifestation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://www.purl.org/twc/ns/darkdata#Event">
+    <rdfs:label xml:lang="en">Event</rdfs:label>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://www.purl.org/twc/ns/darkdata#Histogram">
+    <rdfs:subClassOf rdf:resource="http://www.purl.org/twc/ns/darkdata#Visualization"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://www.purl.org/twc/ns/darkdata#Hovmoller">
+    <rdfs:subClassOf rdf:resource="http://www.purl.org/twc/ns/darkdata#Visualization"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://www.purl.org/twc/ns/darkdata#Hurricane">
+    <rdfs:label xml:lang="en">Hurricane</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.purl.org/twc/ns/darkdata#Phenomena"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.purl.org/twc/ns/darkdata#physicalManifestation"/>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="http://www.purl.org/twc/ns/darkdata#WindFields">
+            <rdfs:label xml:lang="en">Wind Fields</rdfs:label>
+            <rdfs:subClassOf rdf:resource="http://www.purl.org/twc/ns/darkdata#PhysicalManifestation"/>
+          </owl:Class>
+        </owl:someValuesFrom>
+
+      </owl:Restriction>
+    </rdfs:subClassOf>
+
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.purl.org/twc/ns/darkdata#physicalManifestation"/>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="http://www.purl.org/twc/ns/darkdata#HurricaneEye">
+            <rdfs:label xml:lang="en">Hurricane Eye</rdfs:label>
+            <rdfs:subClassOf rdf:resource="http://www.purl.org/twc/ns/darkdata#PhysicalManifestation"/>
+          </owl:Class>
+        </owl:someValuesFrom>
+
+      </owl:Restriction>
+    </rdfs:subClassOf>
+
+  </owl:Class>
+
+  <owl:Class rdf:about="http://www.purl.org/twc/ns/darkdata#ObservableProperty">
+    <rdfs:label xml:lang="en">Observable Property</rdfs:label>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://www.purl.org/twc/ns/darkdata#Phenomena">
+    <rdfs:label xml:lang="en">Phenomena</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.purl.org/twc/ns/darkdata#Event"/>
+    <rdfs:comment xml:lang="en">An observable occurrence of particular physical (as opposed to dynamic or synoptic) significance within the atmosphere</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://www.purl.org/twc/ns/darkdata#PhysicalManifestation">
+    <rdfs:label xml:lang="en">Physical Manifestation</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.purl.org/twc/ns/darkdata#observableProperty"/>
+        <owl:someValuesFrom rdf:resource="http://www.purl.org/twc/ns/darkdata#AerosolOpticalDepth"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+
+  </owl:Class>
+
+  <owl:Class rdf:about="http://www.purl.org/twc/ns/darkdata#Radiance">
+    <rdfs:label xml:lang="en">Radiance</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.purl.org/twc/ns/darkdata#ObservableProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://www.purl.org/twc/ns/darkdata#Rainrate">
+    <rdfs:label xml:lang="en">Rain Rate</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.purl.org/twc/ns/darkdata#ObservableProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://www.purl.org/twc/ns/darkdata#SeasonalTimeSeries">
+    <rdfs:subClassOf rdf:resource="http://www.purl.org/twc/ns/darkdata#Visualization"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://www.purl.org/twc/ns/darkdata#Temperature">
+    <rdfs:label xml:lang="en">Temperature</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.purl.org/twc/ns/darkdata#ObservableProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://www.purl.org/twc/ns/darkdata#TimeAveragedMap">
+    <rdfs:subClassOf rdf:resource="http://www.purl.org/twc/ns/darkdata#Visualization"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://www.purl.org/twc/ns/darkdata#UserDefinedClimatology">
+    <rdfs:subClassOf rdf:resource="http://www.purl.org/twc/ns/darkdata#Visualization"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://www.purl.org/twc/ns/darkdata#VerticalProfile">
+    <rdfs:subClassOf rdf:resource="http://www.purl.org/twc/ns/darkdata#Visualization"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://www.purl.org/twc/ns/darkdata#Visualization">
+    <rdfs:label xml:lang="en">Visualization</rdfs:label>
+  </owl:Class>
+
+  <owl:Class rdf:about="http://www.purl.org/twc/ns/darkdata#VolcanicEruption">
+    <rdfs:label xml:lang="en">Volcanic Eruption</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://www.purl.org/twc/ns/darkdata#Phenomena"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.purl.org/twc/ns/darkdata#physicalManifestation"/>
+        <owl:someValuesFrom rdf:resource="http://www.purl.org/twc/ns/darkdata#AshPlume"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+
+  </owl:Class>
+
+  <owl:Class rdf:about="http://www.purl.org/twc/ns/darkdata#ZonalMeans">
+    <rdfs:subClassOf rdf:resource="http://www.purl.org/twc/ns/darkdata#Visualization"/>
+  </owl:Class>
+
+  <rdf:Description rdf:about="http://www.purl.org/twc/ns/darkdata#aerosol_optical_depth_thickness">
+    <rdf:type rdf:resource="http://www.purl.org/twc/ns/darkdata#AerosolOpticalDepth"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://www.purl.org/twc/ns/darkdata#atmospheric_concentration_SO2">
+    <rdf:type rdf:resource="http://www.purl.org/twc/ns/darkdata#AtmosphericConcentration"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://www.purl.org/twc/ns/darkdata#infrared_radiance">
+    <rdf:type rdf:resource="http://www.purl.org/twc/ns/darkdata#Radiance"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://www.purl.org/twc/ns/darkdata#surface_temperature">
+    <rdf:type rdf:resource="http://www.purl.org/twc/ns/darkdata#Temperature"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://www.purl.org/twc/ns/darkdata#visible_radiance">
+    <rdf:type rdf:resource="http://www.purl.org/twc/ns/darkdata#Radiance"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+
+</rdf:RDF>
