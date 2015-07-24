@@ -138,6 +138,7 @@ dd:Rainrate  rdf:type    owl:Class ;
 
 dd:SeasonalTimeSeries
         rdf:type         owl:Class ;
+        rdfs:label       "Seasonal Time-Series"@en ;
         rdfs:subClassOf  dd:Visualization .
 
 dd:Temperature  rdf:type  owl:Class ;
@@ -145,13 +146,16 @@ dd:Temperature  rdf:type  owl:Class ;
         rdfs:subClassOf  dd:ObservableProperty .
 
 dd:TimeAveragedMap  rdf:type  owl:Class ;
+        rdfs:label       "Time-averaged Map"@en ;
         rdfs:subClassOf  dd:Visualization .
 
 dd:UserDefinedClimatology
         rdf:type         owl:Class ;
+        rdfs:label       "User-defined Climatology"@en ;
         rdfs:subClassOf  dd:Visualization .
 
 dd:VerticalProfile  rdf:type  owl:Class ;
+        rdfs:label       "Vertical Profile"@en ;
         rdfs:subClassOf  dd:Visualization .
 
 dd:Visualization  rdf:type  owl:Class ;
@@ -172,6 +176,7 @@ dd:WindFields  rdf:type  owl:Class ;
         rdfs:subClassOf  dd:PhysicalManifestation .
 
 dd:ZonalMeans  rdf:type  owl:Class ;
+        rdfs:label       "Zonal Means"@en ;
         rdfs:subClassOf  dd:Visualization .
 
 dd:aerosol_optical_depth_thickness
