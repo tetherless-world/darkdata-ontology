@@ -1,8 +1,10 @@
-language: python
+language: java
+jdk:
+  - oraclejdk8
 before_install:
-  - wget http://mirror.tcpdiag.net/apache/jena/binaries/apache-jena-2.13.0.tar.gz -O /tmp/apache-jena.tar.gz
+  - wget http://archive.apache.org/dist/jena/binaries/apache-jena-3.0.0.tar.gz -O /tmp/apache-jena.tar.gz
   - tar -xvf /tmp/apache-jena.tar.gz
-  - export PATH=$PATH:$PWD/apache-jena-2.13.0/bin/
+  - export PATH=$PATH:$PWD/apache-jena-3.0.0/bin
 script: 
   - riot --validate darkdata.ttl > $PWD/tmpfile && cat $PWD/tmpfile && ! grep -q -i error $PWD/tmpfile
   - riot --validate darkdata.rdf > $PWD/tmpfile2 && cat $PWD/tmpfile2 && ! grep -q -i error $PWD/tmpfile2
