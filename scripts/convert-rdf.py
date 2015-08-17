@@ -3,27 +3,16 @@ import rdflib
 import argparse
 
 
-def print_usage():
-    print("usage: " + sys.argv[0] + " <in_format> <out_format> <file>")
-
-
-def load(graph, file, format="turtle"):
-	graph.load(file, format=format)
-
-
-def serialize(graph, format="xml"):
-    if format == "json-ld":
-        return graph.serialize(format='json-ld', indent=2).decode()
-    elif format == "nt":
-        return graph.serialize(format='nt').decode()
-    else:
-        return graph.serialize(format=format, encoding="UTF-8").decode(encoding="UTF-8")
-
-
 def main(file, in_format, out_format):
 	g = rdflib.Graph()
-	load(g, file=file, format=in_format)
-	print(serialize(g, format=out_format))
+	g.load(file, format=in_format)
+
+	if out_format == "json-ld":
+        return g.serialize(format='json-ld', indent=2).decode()
+    elif out_format == "nt":
+        return g.serialize(format='nt').decode()
+    else:
+        return g.serialize(format=out_format, encoding="UTF-8").decode(encoding="UTF-8")
 
 
 if __name__ == "__main__":
