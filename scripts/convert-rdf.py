@@ -8,11 +8,11 @@ def main(file, in_format, out_format):
 	g.load(file, format=in_format)
 
 	if out_format == "json-ld":
-        return g.serialize(format='json-ld', indent=2).decode()
-    elif out_format == "nt":
-        return g.serialize(format='nt').decode()
-    else:
-        return g.serialize(format=out_format, encoding="UTF-8").decode(encoding="UTF-8")
+		print(g.serialize(format='json-ld', indent=2).decode())
+	elif out_format == "nt":
+		print(g.serialize(format='nt').decode())
+	else:
+		print(g.serialize(format=out_format, encoding="UTF-8").decode(encoding="UTF-8"))
 
 
 if __name__ == "__main__":
