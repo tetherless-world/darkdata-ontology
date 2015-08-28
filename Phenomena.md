@@ -1,0 +1,8 @@
+- Fires
+- Severe Storms
+- Dust, Smoke, Haze
+- Floods
+- Volcanoes
+- Earthquakes
+- Crops/Drought
+- Hurricane
