@@ -253,7 +253,7 @@ dd:SevereStorm
                 rdf:type            owl:Restriction ;
                 owl:onProperty      dd:physicalManifestation ;
                 owl:someValuesFrom  dd:WindFields ;
-        ],
+        ];
         dd:topic "Severe Storms" ;
         rdfs:seeAlso <http://eonet.sci.gsfc.nasa.gov/api/v1/topics/10> .
 
