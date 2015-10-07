@@ -9,7 +9,13 @@
 
 <http://www.purl.org/twc/ns/darkdata>
         rdf:type     owl:Ontology ;
+        rdfs:label   "Dark Data Ontology"@en ;
         owl:imports  <http://def.seegrid.csiro.au/ontology/om/om-lite> .
+
+dd:topic
+        rdf:type owl:AnnotationProperty ;
+        rdfs:label "topic" ;
+        rdfs:comment "keyword associated with this class or property" .
 
 dd:observableProperty
         rdf:type      owl:ObjectProperty ;
@@ -66,10 +72,6 @@ dd:DataVariableObservation
         rdfs:subClassOf  _:b0 ;
         rdfs:comment     "Observation whose result is a data variable"@en .
 
-dd:DustStorm  rdf:type   owl:Class ;
-        rdfs:label       "Dust Storm"@en ;
-        rdfs:subClassOf  dd:Phenomena .
-
 dd:ElevatedSurfaceTemperature
         rdf:type         owl:Class ;
         rdfs:label       "Elevated Surface Temperature"@en ;
@@ -83,26 +85,12 @@ dd:Event  rdf:type  owl:Class ;
         rdfs:label  "Event"@en .
 
 dd:Histogram  rdf:type   owl:Class ;
+        rdfs:label       "Histogram"@en ;
         rdfs:subClassOf  dd:Visualization .
 
 dd:Hovmoller  rdf:type   owl:Class ;
+        rdfs:label       "Hovmoller"@en ;
         rdfs:subClassOf  dd:Visualization .
-
-dd:Hurricane  rdf:type   owl:Class ;
-        rdfs:label       "Hurricane"@en ;
-        rdfs:subClassOf  dd:Phenomena .
-
-_:b1    rdf:type            owl:Restriction ;
-        owl:onProperty      dd:physicalManifestation ;
-        owl:someValuesFrom  dd:WindFields .
-
-dd:Hurricane  rdfs:subClassOf  _:b1 .
-
-_:b2    rdf:type            owl:Restriction ;
-        owl:onProperty      dd:physicalManifestation ;
-        owl:someValuesFrom  dd:HurricaneEye .
-
-dd:Hurricane  rdfs:subClassOf  _:b2 .
 
 dd:HurricaneEye  rdf:type  owl:Class ;
         rdfs:label       "Hurricane Eye"@en ;
@@ -132,7 +120,7 @@ dd:Radiance  rdf:type    owl:Class ;
         rdfs:label       "Radiance"@en ;
         rdfs:subClassOf  dd:ObservableProperty .
 
-dd:Rainrate  rdf:type    owl:Class ;
+dd:RainRate  rdf:type    owl:Class ;
         rdfs:label       "Rain Rate"@en ;
         rdfs:subClassOf  dd:ObservableProperty .
 
@@ -161,16 +149,6 @@ dd:VerticalProfile  rdf:type  owl:Class ;
 dd:Visualization  rdf:type  owl:Class ;
         rdfs:label  "Visualization"@en .
 
-dd:VolcanicEruption  rdf:type  owl:Class ;
-        rdfs:label       "Volcanic Eruption"@en ;
-        rdfs:subClassOf  dd:Phenomena .
-
-_:b4    rdf:type            owl:Restriction ;
-        owl:onProperty      dd:physicalManifestation ;
-        owl:someValuesFrom  dd:AshPlume .
-
-dd:VolcanicEruption  rdfs:subClassOf  _:b4 .
-
 dd:WindFields  rdf:type  owl:Class ;
         rdfs:label       "Wind Fields"@en ;
         rdfs:subClassOf  dd:PhysicalManifestation .
@@ -196,3 +174,201 @@ dd:surface_temperature
 
 dd:visible_radiance  rdf:type  dd:Radiance ;
         rdf:type  owl:NamedIndividual .
+
+# Giovanni Visualization instances
+
+dd:DiArAvTs  rdf:type  dd:Visualization ;
+        rdfs:comment  "Time series of area averages of differences between two variables at each spatial grid point"@en .
+
+dd:HvLt  rdf:type     dd:Visualization ;
+        rdf:type      dd:Hovmoller ;
+        rdfs:comment  "Longitude-averaged Hovmoller, plotted over the selected time and longitude ranges"@en .
+
+dd:HiGm  rdf:type     dd:Visualization ;
+        rdfs:comment  "Distribution of values over time and space"@en .
+
+dd:TmAvSc  rdf:type   dd:Visualization ;
+        rdfs:comment  "Time-averaged, interactive X-Y plot of 2 variables"@en .
+
+dd:ArAvTs  rdf:type   dd:Visualization ;
+        rdfs:comment  "Time series of area-averaged values"@en .
+
+dd:CoMp  rdf:type     dd:Visualization ;
+        rdfs:comment  "Simple linear regression of 2 variables at each grid cell"@en .
+
+dd:TmAvMp  rdf:type   dd:Visualization ;
+        rdfs:comment  "Interactive map of average over time at each grid cell"@en .
+
+dd:MpAn  rdf:type     dd:Visualization ;
+        rdfs:comment  "Map animated along the chosen timeline for each grid cell"@en .
+
+dd:StSc  rdf:type     dd:Visualization ;
+        rdfs:comment  "Static Scatter plot"@en .
+
+dd:VtPf  rdf:type     dd:Visualization ;
+        rdfs:comment  "Vertical Profile"@en .
+
+dd:HvLn  rdf:type     dd:Visualization ;
+        rdf:type      dd:Hovmoller ;
+        rdfs:comment  "Latitude-averaged Hovmoller, plotted over the selected time and latitude ranges"@en .
+
+dd:QuCl  rdf:type     dd:Visualization ;
+        rdfs:comment  "Quasi Climatology Map"@en .
+
+dd:InTs  rdf:type     dd:Visualization ;
+        rdfs:comment  "Seasonal (inter annual) time series"@en .
+
+dd:DiTmAvMp  rdf:type  dd:Visualization ;
+        rdfs:comment  "Difference of two time averaged variable maps"@en .
+
+dd:IaSc  rdf:type     dd:Visualization ;
+        rdfs:comment  "Interactive Scatter Plot"@en .
+
+dd:AcMp  rdf:type     dd:Visualization ;
+        rdfs:comment  "Accumulation of measurement over time at each grid point"@en .
+
+dd:ArAvSc  rdf:type   dd:Visualization ;
+        rdfs:comment  "Scatter plot comparing area averaged time series for two variables"@en .
+
+dd:CrTm  rdf:type     dd:Visualization ;
+        rdfs:comment  "Cross Map, Time-Pressure"@en .
+
+dd:CrLt  rdf:type     dd:Visualization ;
+        rdfs:comment  "Cross Map, Latitude-Pressure"@en .
+
+dd:CrLn  rdf:type     dd:Visualization ;
+        rdfs:comment  "Cross Map, Longitude-Pressure"@en .
+
+dd:ZnMn  rdf:type     dd:Visualization ;
+        rdfs:comment  "Zonal mean plot, averaged values are plotted over latitude zones"@en .
+
+# Phenomena sub-classes
+# aligned with eonet event topic categories (some topic categories contain more than one phenomena subclass)
+
+dd:SevereStorm
+        rdf:type owl:Class ;
+        rdfs:label "Severe Storm"@en ;
+        rdfs:subClassOf dd:Phenomena ;
+        rdfs:subClassOf [
+                rdf:type            owl:Restriction ;
+                owl:onProperty      dd:physicalManifestation ;
+                owl:someValuesFrom  dd:WindFields ;
+        ],
+        dd:topic "Severe Storms" ;
+        rdfs:seeAlso <http://eonet.sci.gsfc.nasa.gov/api/v1/topics/10> .
+
+dd:Hurricane
+        rdf:type owl:Class ;
+        rdfs:label "Hurricane"@en ;
+        rdfs:subClassOf dd:SevereStorm ;
+        rdfs:subClassOf [
+                rdf:type            owl:Restriction ;
+                owl:onProperty      dd:physicalManifestation ;
+                owl:someValuesFrom  dd:HurricaneEye ;
+        ] ;
+        dd:topic "Hurrcane" ;
+        rdfs:seeAlso <http://eonet.sci.gsfc.nasa.gov/api/v1/topics/10> .
+
+dd:Flood
+        rdf:type owl:Class ;
+        rdfs:label "Flood"@en;
+        rdfs:subClassOf dd:Phenomena ;
+        dd:topic "Floods" ;
+        rdfs:seeAlso <http://eonet.sci.gsfc.nasa.gov/api/v1/topics/9> .
+
+dd:Wildfire
+        rdf:type owl:Class ;
+        rdfs:label "Wildfire"@en;
+        rdfs:subClassOf dd:Phenomena ;
+        dd:topic "Wildfires" ;
+        rdfs:seeAlso <http://eonet.sci.gsfc.nasa.gov/api/v1/topics/8> .
+
+dd:DustAndHaze
+        rdf:type owl:Class ;
+        rdfs:label "Wildfire"@en ;
+        rdfs:subClassOf dd:Phenomena ;
+        dd:topic "Dust and Haze" ;
+        rdfs:seeAlso <http://eonet.sci.gsfc.nasa.gov/api/v1/topics/7> .
+
+dd:DustStorm
+        rdf:type owl:Class ;
+        rdfs:label "Dust Storm" ;
+        rdfs:subClassOf dd:DustAndHaze, dd:SevereStorm ;
+        dd:topic "Dust Storm" .
+
+dd:Drought
+        rdf:type owl:Class ;
+        rdfs:label "Drought"@en;
+        rdfs:label "Long lasting absence of precipitation affecting agriculture and livestock, and the overall availability of food and water." ;
+        rdfs:subClassOf dd:Phenomena ;
+        dd:topic "Drought" ;
+        rdfs:seeAlso <http://eonet.sci.gsfc.nasa.gov/api/v1/topics/6> .
+
+dd:VolcanicEruption
+        rdf:type owl:Class ;
+        rdfs:label "Volcanic Eruption"@en;
+        rdfs:comment "Related to both the physical effects of an eruption (rock, ash, lava) and the atmospheric (ash and gas plumes). " ;
+        rdfs:subClassOf dd:Phenomena ;
+        dd:topic "Volcanoes" ;
+        rdfs:subClassOf [
+                rdf:type owl:Restriction ;
+                owl:onProperty dd:physicalManifestation ;
+                owl:someValuesFrom dd:AshPlume ;
+        ] ;
+        rdfs:seeAlso <http://eonet.sci.gsfc.nasa.gov/api/v1/topics/12> .
+
+dd:WaterColor
+        rdf:type owl:Class ;
+        rdfs:label "Water Color"@en;
+        rdfs:comment "Related to events that alter the appearance of water: phytoplankton, red tide, algae, sediment, whiting, etc." ;
+        rdfs:subClassOf dd:Phenomena ;
+        dd:topic "Water Color" ;
+        rdfs:seeAlso <http://eonet.sci.gsfc.nasa.gov/api/v1/topics/13> .
+
+dd:Landslide
+        rdf:type owl:Class ;
+        rdfs:label "Landslide"@en ;
+        rdfs:comment "Related to landslides and variations thereof: mudslides, avalanche." ;
+        rdfs:subClassOf dd:Phenomena ;
+        dd:topic "Landslides" ;
+        rdfs:seeAlso <http://eonet.sci.gsfc.nasa.gov/api/v1/topics/14> .
+
+dd:SeaAndLakeIce
+        rdf:type owl:Class ;
+        rdfs:label "Sea and Lake Ice"@en ;
+        rdfs:comment "Related to all ice that resides on oceans and lakes, including sea and lake ice (permanent and seasonal) and icebergs." ;
+        rdfs:subClassOf dd:Phenomena ;
+        dd:topic "Sea and Lake Ice" ;
+        rdfs:seeAlso <http://eonet.sci.gsfc.nasa.gov/api/v1/topics/15> .
+
+dd:Earthquake
+        rdf:type owl:Class ;
+        rdfs:label "Earthquake"@en ;
+        rdfs:comment "Related to all manner of shaking and displacement. Certain aftermath of earthquakes may also be found under landslides and floods." ;
+        rdfs:subClassOf dd:Phenomena ;
+        dd:topic "Earthquakes" ;
+        rdfs:seeAlso <http://eonet.sci.gsfc.nasa.gov/api/v1/topics/16> .
+
+dd:Snow
+        rdf:type owl:Class ;
+        rdfs:label "Snow"@en ;
+        rdfs:comment "Related to snow events, particularly extreme/anomalous snowfall in either timing or extent/depth." ;
+        rdfs:subClassOf dd:Phenomena ;
+        dd:topic "Snow" ;
+        rdfs:seeAlso <http://eonet.sci.gsfc.nasa.gov/api/v1/topics/17> .
+
+dd:TemperatureExtreme
+        rdf:type owl:Class ;
+        rdfs:label "Temperature Extreme"@en ;
+        rdfs:comment "Related to anomalous land temperatures, either heat or cold." ;
+        rdfs:subClassOf dd:Phenomena ;
+        dd:topic "Temperature Extremes" ;
+        rdfs:seeAlso <http://eonet.sci.gsfc.nasa.gov/api/v1/topics/18> .
+
+dd:ManMade
+        rdf:type owl:Class ;
+        rdfs:label "Man-made"@en ;
+        rdfs:comment "Events that have been human-induced and are extreme in their extent." ;
+        rdfs:subClassOf dd:Phenomena ;
+        dd:topic "Manmade" ;
+        rdfs:seeAlso <http://eonet.sci.gsfc.nasa.gov/api/v1/topics/19> .
