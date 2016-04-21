@@ -33,19 +33,24 @@ def write_rdf(data):
     DCT = rdflib.Namespace("http://purl.org/dc/terms/")
     DC = rdflib.Namespace("http://purl.org/dc/elements/1.1/")
     DD = rdflib.Namespace("http://www.purl.org/twc/ns/darkdata#")
+    SSN = rdflib.Namespace("http://purl.oclc.org/NET/ssnx/ssn#")
 
     g.bind("dct", DCT)
     g.bind("dc", DC)
     g.bind("dd", DD)
+    g.bind("ssn", SSN)
 
     for item in data:
-        r = g.resource(rdflib.URIRef(URI_BASE + "parameter/" + item["id"]))
+        r = g.resource(rdflib.URIRef(URI_BASE + "datafield/" + item["id"]))
         r.add(rdflib.RDF.type, DD.DataField)
         r.add(DCT.identifier, rdflib.Literal(item["id"]))
 
         for _measurement in item["measurements"].split(";"):
             measurement = g.resource(rdflib.URIRef(URI_BASE + "measurement/" + urllib.parse.quote_plus(_measurement)))
             measurement.add(rdflib.RDF.type, DD.Measurement)
+            measurement.add(rdflib.RDF.type, SSN.Property)
+            measurement.add(rdflib.RDF.type, DD.ObservableProperty)
+
             measurement.add(rdflib.RDFS.label, rdflib.Literal(_measurement))
             r.add(DD.measurement, measurement)
 
@@ -59,18 +64,19 @@ def write_rdf(data):
             _versioned_product = item["versioned product"]
 
             versioned_product = g.resource(rdflib.URIRef(URI_BASE + "versioned-product/" + urllib.parse.quote_plus(_versioned_product)))
-            versioned_product.add(rdflib.RDF.type, DD.VersionedProduct)
+            versioned_product.add(rdflib.RDF.type, DD.VersionedDataProduct)
             versioned_product.add(rdflib.RDFS.label, rdflib.Literal(_versioned_product))
             versioned_product.add(DD.version, rdflib.Literal(_product_version))
 
             product = g.resource(rdflib.URIRef(URI_BASE + "product/" + urllib.parse.quote_plus(_product)))
-            product.add(rdflib.RDF.type, DD.Product)
+            product.add(rdflib.RDF.type, DD.DataProduct)
             product.add(rdflib.RDFS.label, rdflib.Literal(_product))
 
-            versioned_product.add(DD.product, product)
-            product.add(DD.hasVersionedProduct, versioned_product)
+            versioned_product.add(DCT.isVersionOf, product)
+            product.add(DCT.hasVersion, versioned_product)
 
-            r.add(DD.versionedProduct, versioned_product)
+            r.add(DCT.isPartOf, versioned_product)
+            versioned_product.add(DCT.hasPart, r)
 
         if "time interval" in item:
             _time_interval = item["time interval"]
@@ -91,27 +97,45 @@ def write_rdf(data):
         if "platform" in item and item["platform"] is not None:
             _platform = item["platform"]
             platform = g.resource(rdflib.URIRef(URI_BASE + "platform/" + urllib.parse.quote_plus(_platform)))
-            platform.add(rdflib.RDF.type, DD.Platform)
-            platform.add(rdflib.RDFS.label, rdflib.Literal(_platform))
-            r.add(DD.platform, platform)
+            platform.add(rdflib.RDF.type, SSN.Platform)
+            platform.add(rdflib.RDFS.label, rdflib.Literal(item["platform long name"]))
+            # r.add(DD.platform, platform)
 
         if "instrument" in item and item["instrument"] is not None:
             _instrument = item["instrument"]
             instrument = g.resource(
                 rdflib.URIRef(URI_BASE + "instrument/" + urllib.parse.quote_plus(_instrument)))
-            instrument.add(rdflib.RDF.type, DD.Instrument)
+            instrument.add(rdflib.RDF.type, DD.System)
+            instrument.add(rdflib.RDF.type, DD.Sensor)
             if platform is not None:
-                instrument.add(DD.deployedOn, platform)
-                platform.add(DD.hasDeployed, instrument)
-            instrument.add(rdflib.RDFS.label, rdflib.Literal(_instrument))
-            r.add(DD.instrument, instrument)
+                instrument.add(SSN.onPlatform, platform)
+                platform.add(SSN.attachedSystem, instrument)
+            instrument.add(rdflib.RDFS.label, rdflib.Literal(item["instrument long name"]))
+            # r.add(DD.instrument, instrument)
+
+            if measurement is not None:
+                instrument.add(SSN.observes, measurement)
 
         for keyword in item["keywords"].split(";"):
             r.add(DC.subject, rdflib.Literal(keyword))
 
+        # AKA Deployment?
         if "platform instrument" in item:
-            r.add(DD.platformInstrument, rdflib.URIRef(
-                URI_BASE + "platform-instrument/" + urllib.parse.quote_plus(item["platform instrument"])))
+            _deployment = item["platform instrument"]
+            deployment = g.resource(rdflib.URIRef(
+                URI_BASE + "platform-instrument/" + urllib.parse.quote_plus(_deployment)))
+            deployment.add(rdflib.RDF.type, SSN.Deployment)
+            deployment.add(rdflib.RDFS.label, rdflib.Literal(_deployment))
+
+            r.add(DD.hasDeployment, deployment)
+
+            if instrument is not None:
+                deployment.add(SSN.deployedSystem, instrument)
+                instrument.add(SSN.hasDeployment, deployment)
+
+            if platform is not None:
+                deployment.add(SSN.deployedOnPlatform, platform)
+                platform.add(SSN.inDeployment, deployment)
 
     g.serialize("datafields.ttl", format="turtle")
 
@@ -124,6 +148,7 @@ records = []
 
 time_intervals = set()
 spatial_resolutions = set()
+measurements = set()
 
 for doc in docs:
     g3ID = doc.find("str[@name='dataFieldId']")
@@ -144,9 +169,13 @@ for doc in docs:
     platform = doc.find("str[@name='dataProductPlatformShortName']")
     platform_instrument = doc.find("str[@name='dataProductPlatformInstrument']")
 
+    platform_long_name = doc.find("str[@name='dataProductPlatformLongName']")
+    instrument_long_name = doc.find("str[@name='dataProductInstrumentLongName']")
+
     product = doc.find("str[@name='dataProductShortName']")
     product_version = doc.find("str[@name='dataProductVersion']")
     versioned_product = doc.find("str[@name='dataProductId']")
+    # product_long_name
 
     if g3ID is not None:
         record = {'id': g3ID.text,
@@ -160,7 +189,9 @@ for doc in docs:
                   "instrument": instrument.text if instrument is not None else None,
                   "platform": platform.text if platform is not None else None,
                   "platform instrument": platform_instrument.text if platform_instrument is not None else None,
-                  # "versioned product": versioned_product.text if versioned_product is not None else None,
+                  "platform long name": platform_long_name.text if platform_long_name is not None else None,
+                  "instrument long name": instrument_long_name.text if instrument_long_name is not None else None,
+                  "versioned product": versioned_product.text if versioned_product is not None else None,
                   "product": product.text if product is not None else None,
                   "product version": product_version.text if product_version is not None else None}
         records.append(record)
