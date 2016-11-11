@@ -139,7 +139,7 @@ def write_rdf(data):
 
     g.serialize("datafields.ttl", format="turtle")
 
-csv_file = "resources/Giovanni_AESIR_Solr_apr_2016.xml"
+csv_file = "resources/aesir_2016_11_02.xml"
 
 tree = etree.parse(csv_file)
 root = tree.getroot()
@@ -199,7 +199,7 @@ for doc in docs:
     time_intervals.add(timeInterval.text)
     spatial_resolutions.add(spatialResolution.text)
 
-# write_csv(records)
+#write_csv(records)
 write_rdf(records)
 
 print(time_intervals)
